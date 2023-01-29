@@ -5,7 +5,11 @@ export const Section = ({
   setWhichSectionToShow,
   dogList,
 }) => {
-  const handleChangeSection = ({ target: { dataset: {section} } }) => {
+  const handleChangeSection = ({
+    target: {
+      dataset: { section },
+    },
+  }) => {
     if (section === whichSectionToShow) {
       setWhichSectionToShow("all-dogs");
     } else {
@@ -21,7 +25,9 @@ export const Section = ({
           {/* Add the class 'active' to any selector in order to make it's color change */}
           {/* This should display the favorited count */}
           <div
-            className={`selector ${whichSectionToShow === "favorite-dogs" ? "active" : ""}`}
+            className={`selector ${
+              whichSectionToShow === "favorite-dogs" ? "active" : ""
+            }`}
             data-section={"favorite-dogs"}
             onClick={handleChangeSection}
           >

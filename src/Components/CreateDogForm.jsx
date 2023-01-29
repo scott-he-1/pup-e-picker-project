@@ -17,8 +17,7 @@ export const CreateDogForm = ({ onDogAdd, setDogList }) => {
     onDogAdd(newDogInfo);
     setNameOfDog("");
     setDescriptionOfDog("");
-    setSelectedImage(dogPictures.BlueHeeler);
-    setDogList((prevState) => [...prevState, newDogInfo])
+    setDogList((prevState) => [...prevState, newDogInfo]);
   };
 
   return (

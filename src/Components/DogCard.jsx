@@ -5,7 +5,7 @@ export const DogCard = ({
   dog: { name, image, description, id, isFavorite },
   onDogFavorite,
   onDogUnfavorite,
-  onDogRemove
+  onDogRemove,
 }) => {
   return (
     <div className="dog-card">
