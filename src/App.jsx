@@ -19,8 +19,7 @@ function App() {
   const [dogList, setDogList] = useState([]);
   const [whichSectionToShow, setWhichSectionToShow] = useState("all-dogs");
 
-  useEffect(() => {
-    setIsLoading(true);
+  const reFetch = () => {
     fetchDogList()
       .then((data) => setDogList(data))
       .catch((error) => {
@@ -28,46 +27,35 @@ function App() {
         console.log(error);
       })
       .finally(() => setIsLoading(false));
-  }, [whichSectionToShow]);
+  };
+  
+  useEffect(() => {
+    setIsLoading(true);
+    reFetch();
+  }, []);
 
   const onDogFavorite = ({ target: { id } }) => {
     patchFavoriteDog(id)
-      .then(() =>
-        setDogList((prevState) =>
-          prevState.map((dog) =>
-            dog.id === Number(id) ? { ...prevState[id], isFavorite: true } : dog
-          )
-        )
-      )
+      .then(() => reFetch())
       .catch((error) => console.log(error));
   };
 
   const onDogUnfavorite = ({ target: { id } }) => {
     patchUnfavoriteDog(id)
-      .then(() =>
-        setDogList((prevState) =>
-          prevState.map((dog) =>
-            dog.id === Number(id)
-              ? { ...prevState[id], isFavorite: false }
-              : dog
-          )
-        )
-      )
+      .then(() => reFetch())
       .catch((error) => console.log(error));
   };
 
   const onDogRemove = ({ target: { id } }) => {
     deleteDog(id)
-      .then(() =>
-        setDogList((prevState) =>
-          prevState.filter((dog) => dog.id !== Number(id))
-        )
-      )
+      .then(() => reFetch())
       .catch((error) => console.log(error));
   };
 
   const onDogAdd = (newDogInfo) => {
-    postDog(newDogInfo);
+    postDog(newDogInfo)
+      .then(() => reFetch())
+      .catch((error) => console.log(error));
   };
 
   const showSection = (whichSectionToShow) => {
